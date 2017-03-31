@@ -100,5 +100,7 @@ if ( ! class_exists( 'BEWPI_Invoice' ) ) {
 
 			return $subtotal;
 		}
-	}
+
+
+    }
 }

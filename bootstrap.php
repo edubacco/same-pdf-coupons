@@ -1,13 +1,8 @@
 <?php
 /**
- * Plugin Name:       WooCommerce PDF Invoices
- * Plugin URI:        https://wordpress.org/plugins/woocommerce-pdf-invoices
- * Description:       Automatically generate and attach customizable PDF Invoices to WooCommerce emails and connect with Dropbox, Google Drive, OneDrive or Egnyte.
- * Version:           2.6.5
- * Author:            Bas Elbers
- * Author URI:        http://wcpdfinvoices.com
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Plugin Name:       Same PDF Coupons
+ * Description:       Automatically generate and attach customizable PDF Coupons for Same
+ * Version:           1.0.0
  * Text Domain:       woocommerce-pdf-invoices
  * Domain Path:       /lang
  */
@@ -193,3 +188,17 @@ function _bewpi_on_plugin_activation() {
 }
 
 register_activation_hook( __FILE__, '_bewpi_on_plugin_activation' );
+
+
+function view_coupon() {
+    if ( !isset($_REQUEST['order_id']) || empty($_REQUEST['order_id']) ) {
+        echo 'È necessario passare nella request il parametro "order_id"';
+    } else {
+        $order_id = (int)$_REQUEST['order_id'];
+        $invoice = new BEWPI_Invoice( $order_id );
+        echo $invoice->get_complete_html();
+    }
+    die();
+}
+add_action('wp_ajax_nopriv_view_coupon', 'view_coupon');
+add_action('wp_ajax_view_coupon', 'view_coupon');

@@ -273,5 +273,25 @@ if ( ! class_exists( 'BEWPI_Abstract_Document' ) ) {
 
 			return $full_path;
 		}
+
+        public function get_complete_html() {
+            $html = $this->get_html();
+            $html_to_show = '';
+            if ( count( $html ) === 0 ) {
+                return $html_to_show;
+            }
+
+            if ( ! empty( $html['header'] ) ) {
+                $html_to_show.= $html['header'];
+            }
+
+            $html_to_show.= $html['style'] . $html['body'];
+
+            if ( ! empty( $html['footer'] ) ) {
+                $html_to_show.= $html['footer'];
+            }
+
+            return $html_to_show;
+        }
 	}
 }

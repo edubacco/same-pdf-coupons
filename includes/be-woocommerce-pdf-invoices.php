@@ -310,7 +310,7 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 		 * Add submenu to WooCommerce menu and display options page.
 		 */
 		public function add_wc_submenu_options_page() {
-			add_submenu_page( 'woocommerce', __( 'Invoices', 'woocommerce-pdf-invoices' ), __( 'Invoices', 'woocommerce-pdf-invoices' ), 'manage_options', 'bewpi-invoices', array(
+			add_submenu_page( 'woocommerce', __( 'Coupons', 'woocommerce-pdf-invoices' ), __( 'Coupons', 'woocommerce-pdf-invoices' ), 'manage_options', 'bewpi-invoices', array(
 				$this,
 				'options_page',
 			) );
@@ -359,9 +359,6 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 					<?php submit_button(); ?>
 				</form>
 
-				<?php if ( ! is_plugin_active( 'woocommerce-pdf-invoices-premium/bootstrap.php' ) ) {
-					include BEWPI_DIR . 'includes/partials/settings-sidebar.php';
-				} ?>
 			</div>
 			<?php
 			// add rate plugin text in footer.
@@ -479,7 +476,7 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 
 			// put the column before actions column.
 			$new_columns = array_slice( $columns, 0, count( $columns ) - 1, true ) +
-			               array( 'bewpi_invoice_number' => __( 'Invoice No.', 'woocommerce-pdf-invoices' ) ) +
+			               array( 'bewpi_invoice_number' => __( 'Coupon No.', 'woocommerce-pdf-invoices' ) ) +
 			               array_slice( $columns, count( $columns ) - 1, count( $columns ) - ( count( $columns ) - 1 ), true );
 
 			return $new_columns;
@@ -512,7 +509,7 @@ if ( ! class_exists( 'BE_WooCommerce_PDF_Invoices' ) ) {
 		public function add_admin_order_pdf( $order ) {
 			if ( BEWPI_Invoice::exists( $order->id ) ) {
 				$this->show_invoice_button(
-					__( 'View invoice', 'woocommerce-pdf-invoices' ),
+					__( 'View coupon', 'woocommerce-pdf-invoices' ),
 					$order->id,
 					'view',
 					array(
